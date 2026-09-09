@@ -44,7 +44,8 @@ jobs:
             scripts/analyze_findings.py \
             scripts/validate_remediation.py \
             scripts/generate_executive_report.py \
-            scripts/generate_technical_report.py
+            scripts/generate_technical_report.py \
+            scripts/generate_dashboard_data.py
 
       - name: Validate Android XML
         run: |
@@ -101,7 +102,8 @@ jobs:
 
       - name: Generate technical report
         run: |
-          python scripts/generate_technical_report.py
+          python scripts/generate_technical_report.py \
+            --assessment-date 2026-09-09
 
       - name: Validate generated JSON evidence
         run: |
@@ -113,6 +115,27 @@ jobs:
             data/processed/remediation-validation.json \
             >/dev/null
 
+          python -m json.tool \
+            dashboard/data.json \
+            >/dev/null
+      - name: Validate dashboard assets
+        run: |
+          test -s dashboard/index.html
+          test -s dashboard/styles.css
+          test -s dashboard/app.js
+          test -s dashboard/data.json
+
+          grep -q \
+            'id="findings-body"' \
+            dashboard/index.html
+
+          grep -q \
+            'initializeDashboard' \
+            dashboard/app.js
+
+          grep -q \
+            'scroll-margin-top' \
+            dashboard/styles.css
       - name: Validate expected security counts
         run: |
           python - <<'PY'
@@ -170,7 +193,8 @@ jobs:
             data/processed/analyzed-findings.json \
             data/processed/remediation-validation.json \
             reports/executive/EXECUTIVE-MOBILE-SECURITY-REPORT.md \
-            reports/technical/MOBILE-SECURITY-ASSESSMENT-REPORT.md
+            reports/technical/MOBILE-SECURITY-ASSESSMENT-REPORT.md \
+            dashboard/data.json
 
       - name: Upload mobile security evidence
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
@@ -185,6 +209,6 @@ jobs:
             docs/
             reports/executive/EXECUTIVE-MOBILE-SECURITY-REPORT.md
             reports/technical/MOBILE-SECURITY-ASSESSMENT-REPORT.md
+            dashboard/
           if-no-files-found: error
           retention-days: 30
-          

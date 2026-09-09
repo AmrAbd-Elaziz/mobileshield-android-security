@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="MobileShield Android application security dashboard"
+  >
+
+  <title>MobileShield | Android Security Lab</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <div class="grid-overlay"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#overview">
+      <span class="brand-mark" aria-hidden="true">
+        <span class="brand-core"></span>
+      </span>
+
+      <span>
+        <strong>MobileShield</strong>
+        <small>ANDROID SECURITY LAB</small>
+      </span>
+    </a>
+
+    <nav class="navigation" aria-label="Primary navigation">
+      <a href="#overview">Overview</a>
+      <a href="#comparison">Remediation</a>
+      <a href="#findings">Findings</a>
+      <a href="#coverage">Coverage</a>
+    </nav>
+
+    <a
+      class="repository-link"
+      href="https://github.com/AmrAbd-Elaziz/mobileshield-android-security"
+      target="_blank"
+      rel="noreferrer"
+    >
+      View repository
+      <span aria-hidden="true">↗</span>
+    </a>
+  </header>
+
+  <main>
+    <section class="hero section-shell" id="overview">
+      <div class="hero-copy">
+        <p class="eyebrow">
+          <span class="pulse-dot"></span>
+          ANDROID APPLICATION SECURITY
+        </p>
+
+        <h1>
+          Find the weakness.
+          <span>Prove the fix.</span>
+        </h1>
+
+        <p class="hero-description">
+          An evidence-driven Android security assessment
+          connecting vulnerable Kotlin code, OWASP MASVS
+          mapping, secure remediation and automated
+          regression validation.
+        </p>
+
+        <div class="hero-tags">
+          <span>Android</span>
+          <span>Kotlin</span>
+          <span>OWASP MASVS</span>
+          <span>Secure Coding</span>
+        </div>
+
+        <div class="hero-actions">
+          <a class="primary-action" href="#findings">
+            Explore findings
+            <span aria-hidden="true">↓</span>
+          </a>
+
+          <a
+            class="secondary-action"
+            href="https://github.com/AmrAbd-Elaziz/mobileshield-android-security/blob/main/reports/executive/EXECUTIVE-MOBILE-SECURITY-REPORT.md"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Executive report
+          </a>
+        </div>
+      </div>
+
+      <div class="device-stage" aria-label="Security status">
+        <div class="device-glow"></div>
+
+        <div class="phone">
+          <div class="phone-speaker"></div>
+
+          <div class="phone-screen">
+            <div class="screen-header">
+              <span>SECURITY SCAN</span>
+              <span class="online-state">LIVE</span>
+            </div>
+
+            <div class="shield-visual">
+              <div class="shield-outline">
+                <span class="shield-check">✓</span>
+              </div>
+            </div>
+
+            <p class="screen-label">REMEDIATION STATUS</p>
+            <strong class="screen-status">VALIDATED</strong>
+
+            <div class="scan-progress">
+              <span></span>
+            </div>
+
+            <div class="phone-metrics">
+              <div>
+                <small>CONTROLS</small>
+                <strong id="phone-controls">11/11</strong>
+              </div>
+
+              <div>
+                <small>COVERAGE</small>
+                <strong id="phone-coverage">100%</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="floating-alert vulnerable-alert">
+          <span class="alert-icon">!</span>
+          <div>
+            <small>INITIAL STATE</small>
+            <strong>11 FINDINGS</strong>
+          </div>
+        </div>
+
+        <div class="floating-alert secure-alert">
+          <span class="alert-icon">✓</span>
+          <div>
+            <small>FINAL STATE</small>
+            <strong>ALL VALIDATED</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="metrics section-shell" aria-label="Metrics">
+      <article class="metric-card critical-accent">
+        <p>Critical findings</p>
+        <strong id="critical-count">2</strong>
+        <small>Two-day target SLA</small>
+      </article>
+
+      <article class="metric-card red-accent">
+        <p>Total findings</p>
+        <strong id="total-count">11</strong>
+        <small>Source-based assessment</small>
+      </article>
+
+      <article class="metric-card green-accent">
+        <p>Controls passed</p>
+        <strong id="passed-count">11</strong>
+        <small>Automated validation</small>
+      </article>
+
+      <article class="metric-card blue-accent">
+        <p>MASVS areas</p>
+        <strong id="masvs-count">7</strong>
+        <small>Security coverage</small>
+      </article>
+
+      <article class="metric-card purple-accent">
+        <p>Automated tests</p>
+        <strong id="test-count">18</strong>
+        <small>Regression assurance</small>
+      </article>
+
+      <article class="metric-card green-accent">
+        <p>Closure coverage</p>
+        <strong id="coverage-count">100%</strong>
+        <small>Evidence-based closure</small>
+      </article>
+    </section>
+
+    <section
+      class="comparison-section section-shell"
+      id="comparison"
+    >
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">CODE TRANSFORMATION</p>
+          <h2>Vulnerable to verified.</h2>
+        </div>
+
+        <p>
+          Each weakness is tied to source evidence,
+          a secure control and an automated validation result.
+        </p>
+      </div>
+
+      <div class="comparison-grid">
+        <article class="state-panel vulnerable-panel">
+          <div class="state-heading">
+            <span class="state-icon">!</span>
+            <div>
+              <small>BEFORE</small>
+              <h3>Vulnerable Build</h3>
+            </div>
+          </div>
+
+          <div class="code-window">
+            <div class="window-bar">
+              <span></span>
+              <span></span>
+              <span></span>
+              <p>MainActivity.kt</p>
+            </div>
+
+            <pre><code><span class="code-red">http://</span>api.mobileshield.test
+
+Log.d(TAG, <span class="code-red">sessionToken</span>)
+
+webView.settings
+  .javaScriptEnabled = <span class="code-red">true</span>
+
+webView.<span class="code-red">addJavascriptInterface</span>(...)
+
+MessageDigest.getInstance(
+  <span class="code-red">"MD5"</span>
+)</code></pre>
+          </div>
+
+          <ul class="control-list vulnerable-list">
+            <li>Embedded API credentials</li>
+            <li>Sensitive logging and storage</li>
+            <li>Cleartext network traffic</li>
+            <li>Unsafe native WebView bridge</li>
+          </ul>
+        </article>
+
+        <div class="transformation-arrow">
+          <span>SECURE<br>REFACTOR</span>
+          <strong>→</strong>
+        </div>
+
+        <article class="state-panel secure-panel">
+          <div class="state-heading">
+            <span class="state-icon">✓</span>
+            <div>
+              <small>AFTER</small>
+              <h3>Remediated Build</h3>
+            </div>
+          </div>
+
+          <div class="code-window">
+            <div class="window-bar">
+              <span></span>
+              <span></span>
+              <span></span>
+              <p>MainActivity.kt</p>
+            </div>
+
+            <pre><code><span class="code-green">https://</span>api.mobileshield.test
+
+<span class="code-comment">// Sensitive logging removed</span>
+
+webView.settings
+  .javaScriptEnabled = <span class="code-green">false</span>
+
+<span class="code-comment">// Native bridge removed</span>
+
+MessageDigest.getInstance(
+  <span class="code-green">"SHA-256"</span>
+)</code></pre>
+          </div>
+
+          <ul class="control-list secure-list">
+            <li>Client-side secrets removed</li>
+            <li>Sensitive persistence eliminated</li>
+            <li>HTTPS and secure trust enforced</li>
+            <li>WebView attack surface reduced</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="analysis-grid section-shell">
+      <article class="data-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">RISK PROFILE</p>
+            <h2>Severity Distribution</h2>
+          </div>
+
+          <span>Initial assessment</span>
+        </div>
+
+        <div id="severity-bars" class="bar-list"></div>
+      </article>
+
+      <article class="data-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">CONTROL STATUS</p>
+            <h2>Remediation Assurance</h2>
+          </div>
+
+          <span>Final validation</span>
+        </div>
+
+        <div class="assurance-layout">
+          <div class="assurance-ring">
+            <div>
+              <strong id="ring-value">100%</strong>
+              <small>VALIDATED</small>
+            </div>
+          </div>
+
+          <div class="assurance-details">
+            <div>
+              <span class="legend-dot passed-dot"></span>
+              <p>Controls passed</p>
+              <strong id="assurance-passed">11</strong>
+            </div>
+
+            <div>
+              <span class="legend-dot failed-dot"></span>
+              <p>Controls failed</p>
+              <strong id="assurance-failed">0</strong>
+            </div>
+
+            <div>
+              <span class="legend-dot closed-dot"></span>
+              <p>Findings closed</p>
+              <strong id="assurance-closed">11</strong>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section
+      class="findings-section section-shell"
+      id="findings"
+    >
+      <div class="section-heading findings-heading">
+        <div>
+          <p class="section-kicker">SECURITY EVIDENCE</p>
+          <h2>Finding Register</h2>
+        </div>
+
+        <p id="result-count">11 of 11 findings</p>
+      </div>
+
+      <div class="filters">
+        <label class="search-field">
+          <span>Search findings</span>
+          <input
+            id="search-input"
+            type="search"
+            placeholder="Finding, MASWE, category or evidence"
+          >
+        </label>
+
+        <label>
+          <span>Severity</span>
+          <select id="severity-filter">
+            <option value="All">All severities</option>
+            <option value="Critical">Critical</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+          </select>
+        </label>
+
+        <label>
+          <span>MASVS area</span>
+          <select id="masvs-filter">
+            <option value="All">All areas</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Status</span>
+          <select id="status-filter">
+            <option value="All">All statuses</option>
+            <option value="Closed">Closed</option>
+            <option value="Open">Open</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Finding</th>
+              <th>Severity</th>
+              <th>MASVS / MASWE</th>
+              <th>SLA</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody id="findings-body"></tbody>
+        </table>
+      </div>
+
+      <div id="empty-state" class="empty-state" hidden>
+        No findings match the selected filters.
+      </div>
+    </section>
+
+    <section
+      class="coverage-section section-shell"
+      id="coverage"
+    >
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">STANDARD ALIGNMENT</p>
+          <h2>OWASP MASVS Coverage</h2>
+        </div>
+
+        <p>
+          Eleven findings mapped across seven mobile
+          application security areas.
+        </p>
+      </div>
+
+      <div id="masvs-cards" class="coverage-grid"></div>
+    </section>
+
+    <section class="workflow-section section-shell">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">SECURITY LIFECYCLE</p>
+          <h2>Evidence from discovery to closure.</h2>
+        </div>
+      </div>
+
+      <div id="workflow-steps" class="workflow-steps"></div>
+    </section>
+
+    <section class="conclusion section-shell">
+      <div>
+        <p class="section-kicker">SECURITY OUTCOME</p>
+        <h2>Every finding has a verified control.</h2>
+      </div>
+
+      <p>
+        MobileShield demonstrates that mobile security is
+        more than identifying insecure code. Strong closure
+        requires traceable evidence, secure implementation
+        and repeatable regression validation.
+      </p>
+
+      <span class="conclusion-status">
+        <span class="pulse-dot"></span>
+        11 / 11 CONTROLS PASSED
+      </span>
+    </section>
+  </main>
+
+  <footer class="site-footer section-shell">
+    <div>
+      <strong>MobileShield</strong>
+      <span>Built by Amr Abdelaziz</span>
+    </div>
+
+    <div class="footer-links">
+        <a
+            href="https://github.com/AmrAbd-Elaziz/mobileshield-android-security/blob/main/docs/THREAT-MODEL.md"
+            target="_blank"
+            rel="noreferrer"
+        >
+            Threat Model
+        </a>
+
+        <a
+            href="https://github.com/AmrAbd-Elaziz/mobileshield-android-security/blob/main/docs/SECURITY-ASSESSMENT.md"
+            target="_blank"
+            rel="noreferrer"
+        >
+            Assessment
+        </a>
+
+        <a
+            href="https://github.com/AmrAbd-Elaziz/mobileshield-android-security/blob/main/reports/technical/MOBILE-SECURITY-ASSESSMENT-REPORT.md"
+            target="_blank"
+            rel="noreferrer"
+        >
+            Technical Report
+        </a>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

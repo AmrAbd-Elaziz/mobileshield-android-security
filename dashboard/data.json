@@ -1,0 +1,233 @@
+{
+  "project": "MobileShield",
+  "subtitle": "Android Application Security Lab",
+  "assessment_date": "2026-09-09",
+  "metrics": {
+    "total_findings": 11,
+    "critical_findings": 2,
+    "high_findings": 6,
+    "medium_findings": 3,
+    "remediation_controls": 11,
+    "controls_passed": 11,
+    "closed_findings": 11,
+    "validation_coverage": 100.0,
+    "automated_tests": 18,
+    "masvs_areas_covered": 7
+  },
+  "severity_distribution": {
+    "Critical": 2,
+    "High": 6,
+    "Medium": 3,
+    "Low": 0,
+    "Informational": 0
+  },
+  "masvs_distribution": {
+    "MASVS-STORAGE": 4,
+    "MASVS-CRYPTO": 1,
+    "MASVS-AUTH": 1,
+    "MASVS-NETWORK": 1,
+    "MASVS-PLATFORM": 2,
+    "MASVS-CODE": 0,
+    "MASVS-RESILIENCE": 1,
+    "MASVS-PRIVACY": 1
+  },
+  "category_distribution": {
+    "Application Hardening": 1,
+    "Component Security": 1,
+    "Cryptography": 1,
+    "Data Leakage": 1,
+    "Data Storage": 3,
+    "Network Communication": 1,
+    "Permission Management": 1,
+    "WebView Security": 2
+  },
+  "security_flow": [
+    {
+      "stage": "Threat Model",
+      "description": "Identify assets, entry points and trust boundaries."
+    },
+    {
+      "stage": "Source Review",
+      "description": "Locate insecure Android and Kotlin patterns."
+    },
+    {
+      "stage": "Risk Mapping",
+      "description": "Assign severity, SLA, MASVS and MASWE references."
+    },
+    {
+      "stage": "Remediation",
+      "description": "Implement a hardened Android reference version."
+    },
+    {
+      "stage": "Validation",
+      "description": "Verify every security control and prevent regression."
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "MS-005",
+      "title": "Exported Activity Without Access Control",
+      "category": "Component Security",
+      "severity": "Critical",
+      "severity_score": 4,
+      "target_sla": "2 days",
+      "masvs_group": "MASVS-AUTH",
+      "maswe_id": "MASWE-0018",
+      "file_path": "app/vulnerable/src/main/AndroidManifest.xml",
+      "evidence": "MainActivity is exported with an unprotected custom intent action",
+      "control": "Unprotected custom intent entry point removed",
+      "validation_status": "Passed",
+      "disposition": "Closed"
+    },
+    {
+      "finding_id": "MS-006",
+      "title": "Unsafe JavaScript Interface Exposes Session Token",
+      "category": "WebView Security",
+      "severity": "Critical",
+      "severity_score": 4,
+      "target_sla": "2 days",
+      "masvs_group": "MASVS-PLATFORM",
+      "maswe_id": "MASWE-0033",
+      "file_path": "app/vulnerable/src/main/java/com/mobileshield/MainActivity.kt",
+      "evidence": "addJavascriptInterface exposes getSessionToken",
+      "control": "JavaScript interface exposing session data removed",
+      "validation_status": "Passed",
+      "disposition": "Closed"
+    },
+    {
+      "finding_id": "MS-001",
+      "title": "Hardcoded API Key",
+      "category": "Data Storage",
+      "severity": "High",
+      "severity_score": 3,
+      "target_sla": "7 days",
+      "masvs_group": "MASVS-STORAGE",
+      "maswe_id": "MASWE-0004",
+      "file_path": "app/vulnerable/src/main/java/com/mobileshield/MainActivity.kt",
+      "evidence": "private const val API_KEY",
+      "control": "Hardcoded API key removed",
+      "validation_status": "Passed",
+      "disposition": "Closed"
+    },
+    {
+      "finding_id": "MS-002",
+      "title": "Sensitive Data Written to Application Logs",
+      "category": "Data Leakage",
+      "severity": "High",
+      "severity_score": 3,
+      "target_sla": "7 days",
+      "masvs_group": "MASVS-STORAGE",
+      "maswe_id": "MASWE-0005",
+      "file_path": "app/vulnerable/src/main/java/com/mobileshield/MainActivity.kt",
+      "evidence": "Log.d includes sessionToken and API_KEY",
+      "control": "Sensitive debug logging removed",
+      "validation_status": "Passed",
+      "disposition": "Closed"
+    },
+    {
+      "finding_id": "MS-003",
+      "title": "Sensitive Data Stored in Plaintext SharedPreferences",
+      "category": "Data Storage",
+      "severity": "High",
+      "severity_score": 3,
+      "target_sla": "7 days",
+      "masvs_group": "MASVS-STORAGE",
+      "maswe_id": "MASWE-0001",
+      "file_path": "app/vulnerable/src/main/java/com/mobileshield/MainActivity.kt",
+      "evidence": "SharedPreferences stores session_token and api_key",
+      "control": "Sensitive plaintext preference storage removed",
+      "validation_status": "Passed",
+      "disposition": "Closed"
+    },
+    {
+      "finding_id": "MS-004",
+      "title": "Cleartext Network Traffic Permitted",
+      "category": "Network Communication",
+      "severity": "High",
+      "severity_score": 3,
+      "target_sla": "7 days",
+      "masvs_group": "MASVS-NETWORK",
+      "maswe_id": "MASWE-0026",
+      "file_path": "app/vulnerable/src/main/AndroidManifest.xml",
+      "evidence": "usesCleartextTraffic=true and cleartextTrafficPermitted=true",
+      "control": "HTTPS enforced and cleartext traffic disabled",
+      "validation_status": "Passed",
+      "disposition": "Closed"
+    },
+    {
+      "finding_id": "MS-007",
+      "title": "WebView Allows Unsafe Local File Access",
+      "category": "WebView Security",
+      "severity": "High",
+      "severity_score": 3,
+      "target_sla": "7 days",
+      "masvs_group": "MASVS-PLATFORM",
+      "maswe_id": "MASWE-0034",
+      "file_path": "app/vulnerable/src/main/java/com/mobileshield/MainActivity.kt",
+      "evidence": "allowFileAccess and allowUniversalAccessFromFileURLs are enabled",
+      "control": "WebView local and content access disabled",
+      "validation_status": "Passed",
+      "disposition": "Closed"
+    },
+    {
+      "finding_id": "MS-009",
+      "title": "Sensitive Application Data Included in Backups",
+      "category": "Data Storage",
+      "severity": "High",
+      "severity_score": 3,
+      "target_sla": "7 days",
+      "masvs_group": "MASVS-STORAGE",
+      "maswe_id": "MASWE-0006",
+      "file_path": "app/vulnerable/src/main/AndroidManifest.xml",
+      "evidence": "android:allowBackup=true",
+      "control": "Application backups disabled",
+      "validation_status": "Passed",
+      "disposition": "Closed"
+    },
+    {
+      "finding_id": "MS-008",
+      "title": "Weak MD5 Hashing Used for Security-Sensitive Value",
+      "category": "Cryptography",
+      "severity": "Medium",
+      "severity_score": 2,
+      "target_sla": "30 days",
+      "masvs_group": "MASVS-CRYPTO",
+      "maswe_id": "MASWE-0008",
+      "file_path": "app/vulnerable/src/main/java/com/mobileshield/MainActivity.kt",
+      "evidence": "MessageDigest.getInstance(\"MD5\")",
+      "control": "MD5 replaced with SHA-256",
+      "validation_status": "Passed",
+      "disposition": "Closed"
+    },
+    {
+      "finding_id": "MS-010",
+      "title": "Debuggable Application Configuration Enabled",
+      "category": "Application Hardening",
+      "severity": "Medium",
+      "severity_score": 2,
+      "target_sla": "30 days",
+      "masvs_group": "MASVS-RESILIENCE",
+      "maswe_id": "MASWE-0063",
+      "file_path": "app/vulnerable/src/main/AndroidManifest.xml",
+      "evidence": "android:debuggable=true",
+      "control": "Debuggable mode disabled",
+      "validation_status": "Passed",
+      "disposition": "Closed"
+    },
+    {
+      "finding_id": "MS-011",
+      "title": "Excessive External Storage Permissions",
+      "category": "Permission Management",
+      "severity": "Medium",
+      "severity_score": 2,
+      "target_sla": "30 days",
+      "masvs_group": "MASVS-PRIVACY",
+      "maswe_id": "MASWE-0066",
+      "file_path": "app/vulnerable/src/main/AndroidManifest.xml",
+      "evidence": "READ_EXTERNAL_STORAGE and WRITE_EXTERNAL_STORAGE permissions requested",
+      "control": "Unnecessary external-storage permissions removed",
+      "validation_status": "Passed",
+      "disposition": "Closed"
+    }
+  ]
+}

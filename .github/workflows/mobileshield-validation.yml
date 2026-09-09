@@ -101,8 +101,11 @@ jobs:
             --assessment-date 2026-09-09
 
       - name: Generate technical report
+        run: python scripts/generate_technical_report.py
+
+      - name: Generate dashboard data
         run: |
-          python scripts/generate_technical_report.py \
+          python scripts/generate_dashboard_data.py \
             --assessment-date 2026-09-09
 
       - name: Validate generated JSON evidence

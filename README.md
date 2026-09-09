@@ -6,10 +6,23 @@
 ![OWASP MASVS](https://img.shields.io/badge/OWASP-MASVS-ED1C24)
 ![Tests](https://img.shields.io/badge/Tests-18%20Passing-2EA44F)
 [![MobileShield Validation](https://github.com/AmrAbd-Elaziz/mobileshield-android-security/actions/workflows/mobileshield-validation.yml/badge.svg)](https://github.com/AmrAbd-Elaziz/mobileshield-android-security/actions/workflows/mobileshield-validation.yml)
+[![Live Dashboard](https://img.shields.io/badge/Live-MobileShield%20Dashboard-3DDC84)](https://amrabd-elaziz.github.io/mobileshield-android-security/)
 
 An Android application-security portfolio lab demonstrating vulnerable-code review, OWASP MASVS and MASWE mapping, secure remediation and automated evidence-based validation.
 
 > **Security notice:** This project contains intentionally vulnerable training code and synthetic secrets, endpoints and findings. It contains no production application, customer data or authentic credentials.
+
+## Interactive Security Dashboard
+
+Explore the live Android application-security dashboard, including vulnerability severity, vulnerable-to-remediated code comparison, OWASP MASVS coverage and the searchable finding register.
+
+[Open MobileShield Android Security Dashboard](https://amrabd-elaziz.github.io/mobileshield-android-security/)
+
+Run it locally:
+
+```bash
+python3 -m http.server 8000 --directory dashboard
+```
 
 ## Project Objective
 

@@ -1,0 +1,190 @@
+name: MobileShield Validation Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+
+jobs:
+  validate:
+    name: Validate MobileShield
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Display Python version
+        run: python --version
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Compile Python source
+        run: |
+          python -m py_compile \
+            scripts/analyze_findings.py \
+            scripts/validate_remediation.py \
+            scripts/generate_executive_report.py \
+            scripts/generate_technical_report.py
+
+      - name: Validate Android XML
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+
+          paths = [
+              Path(
+                  "app/vulnerable/src/main/"
+                  "AndroidManifest.xml"
+              ),
+              Path(
+                  "app/vulnerable/src/main/res/xml/"
+                  "network_security_config.xml"
+              ),
+              Path(
+                  "app/remediated/src/main/"
+                  "AndroidManifest.xml"
+              ),
+              Path(
+                  "app/remediated/src/main/res/xml/"
+                  "network_security_config.xml"
+              ),
+          ]
+
+          for path in paths:
+              ET.parse(path)
+              print(f"Valid XML: {path}")
+          PY
+
+      - name: Validate raw finding evidence
+        run: |
+          python -m json.tool \
+            data/raw/mobile-security-findings.json \
+            >/dev/null
+
+      - name: Run automated tests
+        run: |
+          python -m unittest discover \
+            -s tests \
+            -v
+
+      - name: Analyze mobile security findings
+        run: python scripts/analyze_findings.py
+
+      - name: Validate remediation controls
+        run: python scripts/validate_remediation.py
+
+      - name: Generate executive report
+        run: |
+          python scripts/generate_executive_report.py \
+            --assessment-date 2026-09-09
+
+      - name: Generate technical report
+        run: |
+          python scripts/generate_technical_report.py
+
+      - name: Validate generated JSON evidence
+        run: |
+          python -m json.tool \
+            data/processed/analyzed-findings.json \
+            >/dev/null
+
+          python -m json.tool \
+            data/processed/remediation-validation.json \
+            >/dev/null
+
+      - name: Validate expected security counts
+        run: |
+          python - <<'PY'
+          import json
+          from collections import Counter
+
+          with open(
+              "data/processed/analyzed-findings.json",
+              encoding="utf-8",
+          ) as file:
+              findings = json.load(file)
+
+          with open(
+              (
+                  "data/processed/"
+                  "remediation-validation.json"
+              ),
+              encoding="utf-8",
+          ) as file:
+              validation = json.load(file)
+
+          severity = Counter(
+              finding["severity"]
+              for finding in findings
+          )
+
+          passed = sum(
+              result["validation_status"] == "Passed"
+              for result in validation
+          )
+
+          assert len(findings) == 11
+          assert severity["Critical"] == 2
+          assert severity["High"] == 6
+          assert severity["Medium"] == 3
+          assert len(validation) == 11
+          assert passed == 11
+
+          assert all(
+              result["disposition"] == "Closed"
+              for result in validation
+          )
+
+          print("Expected security counts validated")
+          print(f"Findings: {len(findings)}")
+          print(f"Critical: {severity['Critical']}")
+          print(f"High: {severity['High']}")
+          print(f"Medium: {severity['Medium']}")
+          print(f"Controls passed: {passed}")
+          PY
+
+      - name: Verify generated artifacts are current
+        run: |
+          git diff --exit-code -- \
+            data/processed/analyzed-findings.json \
+            data/processed/remediation-validation.json \
+            reports/executive/EXECUTIVE-MOBILE-SECURITY-REPORT.md \
+            reports/technical/MOBILE-SECURITY-ASSESSMENT-REPORT.md
+
+      - name: Upload mobile security evidence
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: mobileshield-security-evidence
+          path: |
+            app/vulnerable/
+            app/remediated/
+            data/raw/mobile-security-findings.json
+            data/processed/analyzed-findings.json
+            data/processed/remediation-validation.json
+            docs/
+            reports/executive/EXECUTIVE-MOBILE-SECURITY-REPORT.md
+            reports/technical/MOBILE-SECURITY-ASSESSMENT-REPORT.md
+          if-no-files-found: error
+          retention-days: 30
+          

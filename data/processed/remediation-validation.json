@@ -1,0 +1,112 @@
+[
+  {
+    "finding_id": "MS-001",
+    "title": "Hardcoded API Key",
+    "severity": "High",
+    "control": "Hardcoded API key removed",
+    "vulnerable_evidence_confirmed": true,
+    "remediation_verified": true,
+    "validation_status": "Passed",
+    "disposition": "Closed"
+  },
+  {
+    "finding_id": "MS-002",
+    "title": "Sensitive Data Written to Application Logs",
+    "severity": "High",
+    "control": "Sensitive debug logging removed",
+    "vulnerable_evidence_confirmed": true,
+    "remediation_verified": true,
+    "validation_status": "Passed",
+    "disposition": "Closed"
+  },
+  {
+    "finding_id": "MS-003",
+    "title": "Sensitive Data Stored in Plaintext SharedPreferences",
+    "severity": "High",
+    "control": "Sensitive plaintext preference storage removed",
+    "vulnerable_evidence_confirmed": true,
+    "remediation_verified": true,
+    "validation_status": "Passed",
+    "disposition": "Closed"
+  },
+  {
+    "finding_id": "MS-004",
+    "title": "Cleartext Network Traffic Permitted",
+    "severity": "High",
+    "control": "HTTPS enforced and cleartext traffic disabled",
+    "vulnerable_evidence_confirmed": true,
+    "remediation_verified": true,
+    "validation_status": "Passed",
+    "disposition": "Closed"
+  },
+  {
+    "finding_id": "MS-005",
+    "title": "Exported Activity Without Access Control",
+    "severity": "Critical",
+    "control": "Unprotected custom intent entry point removed",
+    "vulnerable_evidence_confirmed": true,
+    "remediation_verified": true,
+    "validation_status": "Passed",
+    "disposition": "Closed"
+  },
+  {
+    "finding_id": "MS-006",
+    "title": "Unsafe JavaScript Interface Exposes Session Token",
+    "severity": "Critical",
+    "control": "JavaScript interface exposing session data removed",
+    "vulnerable_evidence_confirmed": true,
+    "remediation_verified": true,
+    "validation_status": "Passed",
+    "disposition": "Closed"
+  },
+  {
+    "finding_id": "MS-007",
+    "title": "WebView Allows Unsafe Local File Access",
+    "severity": "High",
+    "control": "WebView local and content access disabled",
+    "vulnerable_evidence_confirmed": true,
+    "remediation_verified": true,
+    "validation_status": "Passed",
+    "disposition": "Closed"
+  },
+  {
+    "finding_id": "MS-008",
+    "title": "Weak MD5 Hashing Used for Security-Sensitive Value",
+    "severity": "Medium",
+    "control": "MD5 replaced with SHA-256",
+    "vulnerable_evidence_confirmed": true,
+    "remediation_verified": true,
+    "validation_status": "Passed",
+    "disposition": "Closed"
+  },
+  {
+    "finding_id": "MS-009",
+    "title": "Sensitive Application Data Included in Backups",
+    "severity": "High",
+    "control": "Application backups disabled",
+    "vulnerable_evidence_confirmed": true,
+    "remediation_verified": true,
+    "validation_status": "Passed",
+    "disposition": "Closed"
+  },
+  {
+    "finding_id": "MS-010",
+    "title": "Debuggable Application Configuration Enabled",
+    "severity": "Medium",
+    "control": "Debuggable mode disabled",
+    "vulnerable_evidence_confirmed": true,
+    "remediation_verified": true,
+    "validation_status": "Passed",
+    "disposition": "Closed"
+  },
+  {
+    "finding_id": "MS-011",
+    "title": "Excessive External Storage Permissions",
+    "severity": "Medium",
+    "control": "Unnecessary external-storage permissions removed",
+    "vulnerable_evidence_confirmed": true,
+    "remediation_verified": true,
+    "validation_status": "Passed",
+    "disposition": "Closed"
+  }
+]
